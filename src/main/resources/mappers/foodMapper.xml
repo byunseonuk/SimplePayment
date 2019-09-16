@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="foodMapper">
+	<resultMap type="com.simple.payment.model.FoodVO" id="foodMap">
+		<result property="_id" column="_id"/>
+		<result property="food_name" column="food_name"/>
+		<result property="price" column="price"/>
+		<result property="image" column="image"/>
+	</resultMap>
+	
+	<select id="getFoodList" resultMap="foodMap">
+		SELECT * FROM food
+	</select>
+	
+	<select id="getFood" resultMap="foodMap">
+		SELECT * FROM food WHERE _id=#{food_id}
+	</select>
+</mapper>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+	<resultMap type="com.simple.payment.model.UserVO" id="userResultMap">
+		<result property="_id" column="_id"/>
+		<result property="email" column="email"/>
+		<result property="password" column="password"/>
+	</resultMap>
+	
+	<resultMap type="com.simple.payment.model.OrderVO" id="orderMap">
+		<result property="_id" column="_id"/>
+		<result property="owner_id" column="owner_id"/>
+		<result property="product_id" column="product_id"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	
+	
+	<insert id="createUser">
+		<selectKey resultType="integer" keyProperty="_id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO user(
+			email,
+			password,
+			name
+		) VALUES (
+			#{email},
+			#{password},
+			#{name}
+		)
+	</insert>
+	
+	<insert id="insertPayment">
+		<selectKey resultType="integer" keyProperty="_id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO payment(
+			tno, app_no, owner
+		) VALUES (
+			#{tno}, #{app_no}, #{owner}
+		)
+	</insert>
+	
+	<insert id="orderProduct">
+		<selectKey resultType="integer" keyProperty="_id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		INSERT INTO orderproduct(
+			owner_id, product_id ,state
+		) VALUES (
+			#{owner_id}, #{product_id}, #{state}
+		)		
+	</insert>
+	
+	<select id="getUser" resultMap="userResultMap">
+		SELECT * FROM user WHERE email=#{email}
+	</select>
+	
+	<select id="getOrderList" resultMap="orderMap">
+		SELECT * FROM orderproduct
+	</select>
+	
+	<delete id="completeOrder">
+		DELETE FROM orderproduct WHERE _id=#{_id}
+	</delete>
+	
+</mapper>

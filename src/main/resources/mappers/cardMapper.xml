@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cardMapper">
+	<resultMap type="com.simple.payment.model.CardVO" id="cardMap">
+		<result property="_id" column="_id"/>
+		<result property="cardno" column="cardno"/>
+		<result property="owner" column="owner"/>
+		<result property="exprY" column="exprY"/>
+		<result property="exprM" column="exprM"/>
+		<result property="bno" column="bno"/>
+		<result property="card2pw" column="card2pw"/>
+	</resultMap>
+	
+	<select id="getCard" resultMap="cardMap">
+		SELECT * FROM card WHERE owner=#{user_id}
+	</select>
+</mapper>
